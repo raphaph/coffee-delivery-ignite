@@ -2,10 +2,13 @@ import styled from 'styled-components'
 import { defaultTheme } from '../../styles/themes/default'
 
 export const OurCoffeesText = styled.p`
-  margin: 0 0 3rem 0;
+  margin-bottom: 4rem;
   font-size: 2rem;
   font-family: 'Baloo 2', cursive;
-  text-align: center;
+  text-align: left;
+  position: relative;
+  left: 18rem;
+  width: 13rem;
 `
 
 export const DeliveryContainer = styled.div`
@@ -31,21 +34,13 @@ export const CoffeeContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
+  margin: 1rem 1.5rem;
   background: ${defaultTheme['base-card']};
   border-radius: 6px 36px;
-  margin: 1.3rem 1rem;
+
   text-align: center;
 
-  strong:first-of-type {
-    color: ${defaultTheme['yellow-dark']};
-    padding: 4px 8px;
-    border-radius: 100px;
-    background: ${defaultTheme['yellow-light']};
-    font-size: 14px;
-    margin-top: 0.5rem;
-  }
-
-  strong:last-of-type {
+  strong {
     font-size: 20px;
     font-family: 'Baloo 2', cursive;
     margin-top: 0.5rem;
@@ -99,6 +94,20 @@ export const PriceCountContainer = styled.div`
     }
   }
 `
+
+export const TypeContainer = styled.div`
+  margin: 0.5rem;
+
+  strong {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.62rem;
+    border-radius: 100px;
+    padding: 4px 8px;
+    color: ${defaultTheme['yellow-dark']};
+    background: ${defaultTheme['yellow-light']};
+  }
+`
+
 export const ButtonCartAddContainer = styled.button`
   color: white;
   padding: 0.4rem 0.5rem;

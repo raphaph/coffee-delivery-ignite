@@ -1,9 +1,13 @@
 import { ShoppingCartSimple, MapPin } from 'phosphor-react'
+import { useContext } from 'react'
 
 import { NavLink } from 'react-router-dom'
+import { NewOrderContext } from '../../contexts/NewOrderContext'
 import { HeaderContainer } from './styles'
 
 export function Header() {
+  const { newCartList } = useContext(NewOrderContext)
+
   return (
     <>
       <HeaderContainer>
@@ -18,7 +22,7 @@ export function Header() {
           </div>
           <NavLink to="/cart" title="cart">
             <ShoppingCartSimple size={22} weight="fill" />
-            <p>1</p>
+            <p>{newCartList.length}</p>
           </NavLink>
         </nav>
       </HeaderContainer>

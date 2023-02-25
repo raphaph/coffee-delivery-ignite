@@ -6,7 +6,9 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 6.5rem;
-
+  position: fixed;
+  background: ${defaultTheme.background};
+  width: 100%;
   img {
     margin-left: 10rem;
   }

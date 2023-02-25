@@ -1,5 +1,6 @@
 import { Plus, Minus, ShoppingCartSimple } from 'phosphor-react'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { NewOrderContext } from '../../contexts/NewOrderContext'
 import {
   ButtonCartAddContainer,
   CoffeeContainer,
@@ -7,57 +8,13 @@ import {
   ListCoffeesContainer,
   OurCoffeesText,
   PriceCountContainer,
+  TypeContainer,
 } from './style'
 
-const listCoffees = [
-  {
-    id: 1,
-    name: 'Expresso Tradicional',
-    description: 'O tradicional café feito com água quente e grãos moídos',
-    img: 'src/assets/coffees/expresso_tradicional.png',
-    type: 'Tradicional',
-    price: 9.9,
-    initialQuantity: 1,
-  },
-  {
-    id: 2,
-    name: 'Expresso Americano',
-    description: 'Expresso diluído, menos intenso que o tradicional',
-    img: 'src/assets/coffees/expresso_americano.png',
-    type: 'Tradicional',
-    price: 9.9,
-    initialQuantity: 1,
-  },
-  {
-    id: 3,
-    name: 'Expresso Cremoso',
-    description: 'Café expresso tradicional com espuma cremosa',
-    img: 'src/assets/coffees/expresso_cremoso.png',
-    type: 'Tradicional',
-    price: 9.9,
-    initialQuantity: 1,
-  },
-  {
-    id: 4,
-    name: 'Expresso Gelado',
-    description: 'Bebida preparada com café expresso e cubos de gelo',
-    img: 'src/assets/coffees/expresso_gelado.png',
-    type: 'Tradicional',
-    price: 9.9,
-    initialQuantity: 1,
-  },
-  {
-    id: 5,
-    name: 'Café com Leite',
-    description: 'Meio a meio de expresso tradicional com leite vaporizado',
-    img: 'src/assets/coffees/cafe_com_leite.png',
-    type: 'Tradicional',
-    price: 9.9,
-    initialQuantity: 1,
-  },
-]
-
 export function Home() {
+  const { removeOneCoffee, addCoffeToCart, addOneCoffee, listCoffees } =
+    useContext(NewOrderContext)
+
   return (
     <>
       <img src="src/assets/intro.svg" alt="" />
@@ -68,21 +25,42 @@ export function Home() {
             return (
               <CoffeeContainer key={coffee.id}>
                 <img src={coffee.img} alt="" />
-                <strong>{coffee.type}</strong>
+
+                {coffee.type.length > 1 ? (
+                  <TypeContainer>
+                    <strong>{coffee.type[0]}</strong>
+                    <strong>{coffee.type[1]}</strong>
+                  </TypeContainer>
+                ) : (
+                  <TypeContainer>
+                    <strong>{coffee.type}</strong>
+                  </TypeContainer>
+                )}
+
                 <strong>{coffee.name}</strong>
                 <p>{coffee.description}</p>
                 <PriceCountContainer>
                   <p>R$ {coffee.price}0</p>
                   <div>
-                    <button>
-                      <Plus size={14} weight="bold" />
-                    </button>
-                    <span>{}</span>
-                    <button>
+                    <button onClick={() => removeOneCoffee(coffee.id)}>
                       <Minus size={14} weight="bold" />
                     </button>
+                    <span>{coffee.quantity}</span>
+                    <button onClick={() => addOneCoffee(coffee.id)}>
+                      <Plus size={14} weight="bold" />
+                    </button>
                   </div>
-                  <ButtonCartAddContainer>
+                  <ButtonCartAddContainer
+                    onClick={() => {
+                      addCoffeToCart(
+                        coffee.id,
+                        coffee.name,
+                        coffee.quantity,
+                        coffee.img,
+                        coffee.price,
+                      )
+                    }}
+                  >
                     <ShoppingCartSimple size={22} weight="fill" />
                   </ButtonCartAddContainer>
                 </PriceCountContainer>
