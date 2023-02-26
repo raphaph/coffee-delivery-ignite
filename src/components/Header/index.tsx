@@ -6,6 +6,15 @@ import { NewOrderContext } from '../../contexts/NewOrderContext'
 import { HeaderContainer } from './styles'
 
 export function Header() {
+  window.addEventListener('scroll', function () {
+    const headerPosition: HTMLElement = document.querySelector('header')
+
+    if (window.pageYOffset > 400) {
+      headerPosition.style.position = 'fixed'
+    } else if (this.window.pageYOffset < 400) {
+      headerPosition.style.position = 'relative'
+    }
+  })
   const { newCartList } = useContext(NewOrderContext)
 
   return (

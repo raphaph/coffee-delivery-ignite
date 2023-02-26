@@ -29,6 +29,11 @@ interface NewOrderContextType {
     totalItem: number
     pictureCart: string
   }[]
+
+  setNewCartList: any
+
+  payType: string
+  setPayType: any
 }
 
 export const NewOrderContext = createContext({} as NewOrderContextType)
@@ -174,6 +179,7 @@ export function NewOrderContextProvider({
   ])
 
   const [newCartList, setNewCartList] = useState([])
+  const [payType, setPayType] = useState('Escolha a forma de pagamento')
 
   function addOneCoffee(id: number) {
     const newListCoffees = listCoffees.map((coffee) => {
@@ -234,6 +240,9 @@ export function NewOrderContextProvider({
         addCoffeToCart,
         listCoffees,
         newCartList,
+        setNewCartList,
+        payType,
+        setPayType,
       }}
     >
       {children}
