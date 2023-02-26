@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Bank, CreditCard, Minus, Money, Plus, Trash } from 'phosphor-react'
 import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
 import { NewOrderContext } from '../../contexts/NewOrderContext'
 import {
   AddressInfoContainer,
@@ -18,6 +19,16 @@ import {
 export function Cart() {
   const { newCartList, setNewCartList, setPayType, payType } =
     useContext(NewOrderContext)
+
+  const { register, handleSubmit, reset } = useForm()
+
+  function handleCreateNewOrder(data: any) {
+    const addressJSON = JSON.stringify(data)
+    localStorage.setItem('addressOnConfirmedOrder', addressJSON)
+    console.log(addressJSON)
+    window.location.href = '/order-confirm'
+    reset()
+  }
 
   function sumTotalCart(motoboy: number) {
     const totalCart: number = newCartList.reduce(
@@ -73,22 +84,59 @@ export function Cart() {
         <AddressInfoContainer>
           <strong>Endereço de entrega</strong>
           <p>Informe o endereço onde deseja receber seu pedido</p>
-          <form id="confirmOrder" action="">
-            <input id="cep" type="text" placeholder="CEP" required />
-            <input id="street" type="text" placeholder="Rua" required />
+          <form id="confirmOrder" onSubmit={handleSubmit(handleCreateNewOrder)}>
+            <input
+              id="cep"
+              type="text"
+              placeholder="CEP"
+              required
+              {...register('cep')}
+            />
+            <input
+              id="street"
+              type="text"
+              placeholder="Rua"
+              {...register('street')}
+              required
+            />
             <div>
-              <input id="number" type="number" placeholder="Número" required />
-              <input id="complement" type="text" placeholder="Complemento" />
+              <input
+                id="number"
+                type="number"
+                placeholder="Número"
+                {...register('number')}
+                required
+              />
+              <input
+                id="complement"
+                type="text"
+                placeholder="Complemento"
+                {...register('complement')}
+              />
             </div>
             <div>
               <input
                 id="neighborhood"
                 type="text"
                 placeholder="Bairro"
+                {...register('neighborhood')}
                 required
               />
-              <input id="city" type="text" placeholder="Cidade" required />
-              <input id="uf" type="text" placeholder="UF" required />
+              <input
+                id="city"
+                type="text"
+                placeholder="Cidade"
+                {...register('city')}
+                required
+              />
+              <input
+                id="uf"
+                type="text"
+                placeholder="UF"
+                {...register('uf')}
+                maxLength={2}
+                required
+              />
             </div>
           </form>
         </AddressInfoContainer>
