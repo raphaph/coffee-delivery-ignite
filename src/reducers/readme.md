@@ -1,0 +1,2 @@
+### não utilizei o reducer apesar de criar
+ainda é um pouco completo para mim o uso do useReducer, entendo o uso dele como variável no lugar do useState, porém a aplicaçaõ das funções com switch e case me embaralhou a cabeça, preciso estudar mais nos proximos projetos.
